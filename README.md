@@ -1,1 +1,1 @@
-# discovering-reversetabnabbing
+# Discovering Reverse Tabnabbing
