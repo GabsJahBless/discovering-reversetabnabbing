@@ -4,7 +4,7 @@
 Because of this I created the *Discovering Reverse Tabnabbing*, that is a Burp extension written in Python which helps to locate HTML links that use the target="_blank" attribute, omitting the rel="noopener" attribute. 
 
 ## Usage
-**1.** Download the "Standalone Jar" version of Jython clicking <a href="http://www.jython.org/downloads.html">here</a>  
+**1.** Download the "Standalone Jar" version of Jython clicking <a href="https://www.jython.org/download">here</a>  
 **2.** Open the Burp Suite tool  
 **3.**  Go to tab *Extender* -> *Options*  
 **4.** At *Python Environment* select the *Jython* file downloaded on **step 1**  
