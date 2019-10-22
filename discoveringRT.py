@@ -5,6 +5,7 @@ from array import array
 import re
 
 REGEX = "(<a .*?_blank.*/a>)"
+REGEX2 = "window.open.*?\)"
 
 class BurpExtender(IBurpExtender, IScannerCheck):
 
@@ -52,22 +53,28 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         x = baseRequestResponse.getResponse()
         responseString = x.tostring()
         regex = self._match_obj(REGEX, responseString)
-        
+        regex2 = self._match_obj(REGEX2, responseString)
+
         if(regex == "None"):
             return None
-
-        #print(regex)
+        if(regex2 == "None"):
+            return None
 
         result = [x for x in regex if x.find("noopener") == -1 ]
-        #print(result)   
+        result2 = [x for x in regex2 if x.find("noopener") == -1 ] 
 
         if(len(result) == 0):
+            return None
+        if(len(result2) == 0):
             return None
 
         matches361 = []
         for element in result:
             matches361.append(self._get_matches(responseString, bytearray(element)))
 
+        for element in result2:
+            matches361.append(self._get_matches(responseString, bytearray(element)))
+        
         flat_list = []
         for sublist in matches361:
             for item in sublist:
