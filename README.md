@@ -4,11 +4,11 @@
 Because of this I created the *Discovering Reverse Tabnabbing*, that is a Burp extension written in Python which helps to locate HTML links that use the target="_blank" attribute, omitting the rel="noopener" attribute. 
 
 ## Usage 
-**1.** Download the "Standalone Jar" version of Jython clicking <a href="http://www.jython.org/downloads.html">here</a>
-**2.** Open the Burp Suite tool
-**3.** Go to tab *Extender* -> *Options*
-**4.** At *Python Environment* select the *Jython* file downloaded on **step 1**
-**5.** After, go to *Extender* -> *Extensions* and click on *Add*
-**6.** On *Extension Details* -> *Extension type* select *Python* and on *Extension Details* -> *Extension file* select the discoveringRT.py file
+**1.** Download the "Standalone Jar" version of Jython clicking <a href="http://www.jython.org/downloads.html">here</a>  
+**2.** Open the Burp Suite tool  
+**3.** Go to tab *Extender* -> *Options*  
+**4.** At *Python Environment* select the *Jython* file downloaded on **step 1**  
+**5.** After, go to *Extender* -> *Extensions* and click on *Add*  
+**6.** On *Extension Details* -> *Extension type* select *Python* and on *Extension Details* -> *Extension file* select the discoveringRT.py file  
 
 Now, when initiating a Passive Scan, issues related to this vulnerability will appear on the *Dashboard* tab.
