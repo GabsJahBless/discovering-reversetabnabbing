@@ -96,7 +96,49 @@ class BurpExtender(IBurpExtender, IScannerCheck):
 
 
     def doActiveScan(self, baseRequestResponse, insertionPoint):
-       pass 
+        x = baseRequestResponse.getResponse()
+        responseString = x.tostring()
+        regex = self._match_obj(REGEX, responseString)
+        regex2 = self._match_obj(REGEX2, responseString)
+
+        if(regex == "None"):
+            return None
+        if(regex2 == "None"):
+            return None
+
+        result = [x for x in regex if x.find("noopener") == -1 ]
+        result2 = [x for x in regex2 if x.find("noopener") == -1 ] 
+
+        if(len(result) == 0):
+            return None
+        if(len(result2) == 0):
+            return None
+
+        matches361 = []
+        for element in result:
+            matches361.append(self._get_matches(responseString, bytearray(element)))
+
+        for element in result2:
+            matches361.append(self._get_matches(responseString, bytearray(element)))
+        
+        flat_list = []
+        for sublist in matches361:
+            for item in sublist:
+                flat_list.append(item)
+
+        matches13 = self.remove_repetidos(flat_list)
+      
+        
+       
+        return [CustomScanIssue(
+            baseRequestResponse.getHttpService(),
+            self._helpers.analyzeRequest(baseRequestResponse).getUrl(),
+            [self._callbacks.applyMarkers(baseRequestResponse, None, matches13)],
+            "Possibility of reverse tabnabbing attack",
+            "The response contains target=\"_blank\" without \"noopener\" attribute.", 
+            "Reverse tabnabbing is an attack where a page linked from the target page is able to rewrite that page, for example, to replace it with a phishing site. As the user was originally on the correct page they are less likely to notice that it has been changed to a phishing site. If the user authenticates to this new page, then their credentials (or other sensitive data) are sent to the phishing site rather than the legitimate one.", 
+            "In general, always add rel = \"noopener\" when opening an external link in a new window or tab. Without this, the new page can access your window object via window.opener and some legacy APIs mean it can navigate your page to a different URL using window.opener.location = newURL.<br/><br/><b>References</b><br/><ul><li><a href='https://www.owasp.org/index.php/Reverse_Tabnabbing' rel='noopener'>Reverse Tabnabbing - OWASP</a></li><li><a href='https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever' rel='noopener'>The most underestimated vulnerability ever</a></li><li><a href='https://pointjupiter.com/what-noopener-noreferrer-nofollow-explained' rel='noopener'>Explained: noopener</a></li></ul><br/><b>Vulnerability classifications</b><br/><ul><li><a href='https://cwe.mitre.org/data/definitions/1022.html' rel='noopener'>CWE-1022: Use of Web Link to Untrusted Target with window.opener Access</a></li></ul>", 
+            "Low")] 
 
 
     def consolidateDuplicateIssues(self, existingIssue, newIssue):
