@@ -8,7 +8,7 @@ Because of this I created the *Discovering Reverse Tabnabbing*, that is a Burp e
 **2.** Open the Burp Suite tool  
 **3.** Go to tab *Extender* -> *Options*  
 **4.** At *Python Environment* select the *Jython* file downloaded on **step 1**  
-**5.** After, go to *Extender* -> *BApp Store* and search for *Discover Reverse Tabnabbing* extension name
+**5.** After, go to *Extender* -> *BApp Store* and search for *Discover Reverse Tabnabbing* extension name  
 **6.** Click on and install it  
 
 Now, when initiating a Passive or Active Scan, issues related to this vulnerability will appear on the *Dashboard* tab.
